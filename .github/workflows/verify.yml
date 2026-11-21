@@ -1,0 +1,32 @@
+name: Compile Java lab exercises
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Compile every Java source individually
+        shell: bash
+        run: |
+          passed=0
+          failed=0
+          : > compile-report.txt
+          while IFS= read -r -d '' file; do
+            dir=$(mktemp -d)
+            if javac -d "$dir" "$file" > compile-error.txt 2>&1; then
+              echo "PASS $file" >> compile-report.txt
+              passed=$((passed+1))
+            else
+              echo "FAIL $file" >> compile-report.txt
+              cat compile-error.txt >> compile-report.txt
+              failed=$((failed+1))
+            fi
+            rm -rf "$dir"
+          done < <(find . -maxdepth 2 -type f -name '*.java' -print0)
+          echo "Compiled: $passed; failed: $failed"
+          cat compile-report.txt
+          test "$failed" -eq 0
