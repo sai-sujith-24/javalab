@@ -1,28 +1,32 @@
 import java.util.Scanner;
- 
- class  student
- {
+
+class student {
     String hallTicketNumber;
     String studentName;
     String department;
-     Student(String hallTicketNumber,String studentName,String department)
-     {
-        this.hallTicketNumber=hallTicketNumber;
-        this.studentName=studentName;
-        this.department=department;
 
-     }
-     void display()
-     {
-        System.out.print("Hall Ticket Number"+hallTicketNumber);
-        System.out.print("Student Name"+studentName);
-        System.out.print("Department"+department);
-        System.out.println();
+    student(String hallTicketNumber, String studentName, String department) {
+        this.hallTicketNumber = hallTicketNumber;
+        this.studentName = studentName;
+        this.department = department;
+    }
 
-     }
- } 
- public class StudentDemo
- {
-    public static void main(String{}args)
-    {
-        scanner sc=new Scanner()
+    void display() {
+        System.out.println("Hall Ticket Number: " + hallTicketNumber);
+        System.out.println("Student Name: " + studentName);
+        System.out.println("Department: " + department);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter hall ticket number: ");
+        String number = sc.nextLine();
+        System.out.print("Enter student name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter department: ");
+        String dept = sc.nextLine();
+        student s = new student(number, name, dept);
+        s.display();
+        sc.close();
+    }
+}
