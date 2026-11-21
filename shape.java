@@ -2,7 +2,7 @@ interface shape {
     void area();
 }
 
-class Circle implements Shape {
+class Circle implements shape {
     public void area() {
         int r = 5;
         System.out.println("Area = " + (3.14 * r * r));
@@ -10,7 +10,6 @@ class Circle implements Shape {
 
     public static void main(String[] args) {
         Circle c = new Circle();
-
         c.area();
     }
 }
